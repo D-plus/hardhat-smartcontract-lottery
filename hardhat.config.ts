@@ -27,7 +27,7 @@ const config: HardhatUserConfig = {
       //@ts-ignore
       blockConfiramtions: 6,
     },
-    hardhat: {
+    localhost: {
       // url: "http://127.0.0.1:8545/",
       chainId: 31337,
       //@ts-ignore

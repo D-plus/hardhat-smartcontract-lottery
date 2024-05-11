@@ -83,6 +83,9 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
       revert Raffle__NotOpen();
     }
 
+    // after a user enters the raffle - set last timestamp from this point in time so that other users have time to join and raffle pick winner from this point in time after `interval` seconds
+    s_lastTimeStamp = block.timestamp;
+
     s_players.push(payable(msg.sender));
 
     emit RaffleEnter(msg.sender);
@@ -104,6 +107,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     bool timePassed = (block.timestamp - s_lastTimeStamp) > i_interval;
     bool hasEnoughPlayers = s_players.length > 0;
     bool hasBalance = address(this).balance > 0;
+
     upkeepNeeded = isOpen && timePassed && hasEnoughPlayers && hasBalance;
   }
 
@@ -191,5 +195,9 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
 
   function getRequestConformations() public pure returns (uint256) {
     return REQUEST_CONFIRMATIONS;
+  }
+
+  function getContractBalance() public view returns (uint256) {
+    return address(this).balance;
   }
 }

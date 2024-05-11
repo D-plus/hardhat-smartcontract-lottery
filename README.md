@@ -111,6 +111,11 @@ However, you can manual verify with:
 yarn hardhat verify --constructor-args arguments.ts DEPLOYED_CONTRACT_ADDRESS
 ```
 
+7. On localhost node which ran with `yarn hardhat node` we can mock ChainLink Upkeep and VRF (only on the hardhat node) and Performed Upkeep to pick random winner
+```
+yarn hardhat run scripts/mockOffchain.ts --network localhost
+```
+
 
 # Linting
 

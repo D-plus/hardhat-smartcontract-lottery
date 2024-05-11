@@ -205,6 +205,10 @@ developmentChains.includes(network.name)
               value: raffleEntranceFee,
             });
           }
+          // Increase time for the `interval` seconds since the count down will start counting after latest enterRaffle,
+          // in other words after last user enters a raffle there should past the `interval` seconds after a winner is selected
+          await network.provider.send("evm_increaseTime", [interval + 1]);
+
           const startingTimeStamp = await raffle.getLatestTimestamp();
 
           // performUpkeep (mock being Chainlink Keepers)
